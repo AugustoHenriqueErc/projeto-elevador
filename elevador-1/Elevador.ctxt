@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=Elevador
+comment0.text=\r\n\ Escreva\ uma\ descri\u00E7\u00E3o\ da\ classe\ Elevador\ aqui.\r\n\ \r\n\ @author\ (seu\ nome)\ \r\n\ @version\ (um\ n\u00FAmero\ da\ vers\u00E3o\ ou\ uma\ data)\r\n
+comment1.params=terreo
+comment1.target=Elevador(Piso)
+comment1.text=\r\n\ Construtor\ para\ objetos\ da\ classe\ Elevador\r\n
+comment2.params=
+comment2.target=void\ abrirPorta()
+comment3.params=
+comment3.target=void\ fecharPorta()
+comment4.params=
+comment4.target=boolean\ isPortaAberta()
+comment5.params=
+comment5.target=boolean\ isSubindo()
+comment6.params=
+comment6.target=boolean\ isDescendo()
+comment7.params=
+comment7.target=Piso\ getPisoAtual()
+comment8.params=parada
+comment8.target=void\ pararNoPiso(Piso)
+numComments=9
