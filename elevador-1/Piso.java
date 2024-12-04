@@ -10,9 +10,10 @@ public class Piso
     private int andarDoPiso;
     private boolean solicitarSubida;
     private boolean solicitarDescida;
-    private Piso próximoPiso;
-    private Piso pisoAnterior;
+    private Piso próximoPiso = null;
+    private Piso pisoAnterior = null;
     private boolean parada = false;
+    private boolean pisoAtual = false;
     /**
      * Construtor para objetos da classe Piso
      */
@@ -78,9 +79,19 @@ public class Piso
         próximoPiso = nextPiso;   
     }
     
+    public Piso getPróximoPiso() 
+    {
+        return próximoPiso; 
+    }
+    
     public void setPisoAnterior(Piso priorPiso)
     {
         pisoAnterior = priorPiso;
+    }
+    
+    public Piso getPisoAnterior() 
+    {
+        return pisoAnterior; 
     }
     
     public void solicitarParada() 
@@ -93,4 +104,27 @@ public class Piso
         return parada;
     }
     
+    public boolean isPisoAtual()
+    {
+        return pisoAtual;
+    }
+    
+    public void setPisoAtual()
+    {
+        pisoAtual = true;
+    }
+    
+    public String getStringPainel()
+    {
+        String stringPainel = ""+ getAndar();
+        if(pisoAtual)
+        {
+            stringPainel = stringPainel + "^";
+        }
+        if(parada)
+        {
+            stringPainel = "*" + stringPainel + "*";      
+        }
+        return stringPainel;
+    }
 }
