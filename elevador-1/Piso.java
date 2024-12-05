@@ -10,16 +10,20 @@ public class Piso
     private int andarDoPiso;
     private boolean solicitarSubida;
     private boolean solicitarDescida;
-    private Piso próximoPiso = null;
-    private Piso pisoAnterior = null;
-    private boolean parada = false;
-    private boolean pisoAtual = false;
+    private Piso próximoPiso;
+    private Piso pisoAnterior;
+    private boolean parada;
+    private Elevador elevador;
     /**
      * Construtor para objetos da classe Piso
      */
     public Piso(int andar)
     {
         andarDoPiso = andar;
+        próximoPiso = null;
+        pisoAnterior = null;
+        parada = false;
+        elevador = null;
     }
 
     /**
@@ -34,14 +38,30 @@ public class Piso
         return andarDoPiso;
     }
     
-    public void queroSubir() 
+    public void setSubir() 
     {
-        solicitarSubida = true;
+        if(solicitarSubida)
+        {
+            solicitarSubida = false;
+        }
+        else
+        {
+            solicitarSubida = true;
+        }
+        mostrarPainel();
     }
     
-    public void queroDescer()
+    public void setDescer()
     {
-        solicitarDescida = true;
+        if(solicitarDescida)
+        {
+            solicitarDescida = false;
+        }
+        else
+        {
+            solicitarDescida = true;
+        }
+        mostrarPainel();
     }
     
     public boolean isQueroSubir() 
@@ -58,19 +78,19 @@ public class Piso
     {
         if(solicitarSubida && solicitarDescida)
         {
-            System.out.printf("%d▲ ▼ \n", getAndar());  
+            System.out.printf("( %d ) ▲ ▼ \n", getAndar());  
         }
         if(solicitarSubida && !solicitarDescida)
         {
-            System.out.printf("%d▲ ▽\n", getAndar());
+            System.out.printf("( %d ) ▲ ▽\n", getAndar());
         }
         if(!solicitarSubida && !solicitarDescida)
         {
-            System.out.printf("%d△ ▽\n", getAndar());
+            System.out.printf("( %d ) △ ▽\n", getAndar());
         }
         if(!solicitarSubida && solicitarDescida)
         {
-            System.out.printf("%d△ ▼\n", getAndar());
+            System.out.printf("( %d ) △ ▼\n", getAndar());
         }
     }
     
@@ -94,37 +114,42 @@ public class Piso
         return pisoAnterior; 
     }
     
-    public void solicitarParada() 
+    public void setParada() 
     {
-        parada = true;
+        if(parada)
+        {
+            parada = false;
+        }
+        else
+        {
+            parada = true;  
+        }
     }
     
     public boolean isParadaSolicitada()
     {
         return parada;
     }
-    
-    public boolean isPisoAtual()
+        
+    public void receberElevador(Elevador elevador)
     {
-        return pisoAtual;
-    }
-    
-    public void setPisoAtual()
-    {
-        pisoAtual = true;
-    }
-    
-    public String getStringPainel()
-    {
-        String stringPainel = ""+ getAndar();
-        if(pisoAtual)
-        {
-            stringPainel = stringPainel + "^";
-        }
+        this.elevador = elevador;
+        elevador.setPisoAtual(this);
         if(parada)
         {
-            stringPainel = "*" + stringPainel + "*";      
+            elevador.abrirPorta();
         }
-        return stringPainel;
+        if(isQueroSubir() && elevador.getDireção())
+        {
+            elevador.abrirPorta();
+            setSubir();
+            mostrarPainel();
+        }
+        if(isQueroDescer() && !elevador.getDireção())
+        {
+            elevador.abrirPorta();
+            setDescer();
+            mostrarPainel();
+        }        
     }
 }
